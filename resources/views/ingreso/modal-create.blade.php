@@ -16,69 +16,69 @@
 				</div>
 				<div class="form-group">
 					<label for="">Detalle:</label>
-					<!-- <textarea class="form-control" rows="3" name="detalle" id="detalle"></textarea> -->
+					
 					<input class="form-control" placeholder="Detalle" name="detalle" id="detalle">
-				</textarea>
-			</div>
-			<div class="form-group">
-				<label>Estado:</label>
-				<select name="estado" class="form-control selectpicker" data-live-search="true">
-					<option value="Aprobado">Aprobado</option>
-					<option value="Denegado">Denegado</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<label>Cantidad:</label>
-				<input class="form-control" placeholder="Cantidad" name="pcantidad" id="pcantidad">
-			</div>
-			<div class="form-group">
-				<label>Medio:</label>
-				<select name="medio_id" class="form-control selectpicker" data-live-search="true" id="medio_id">
-					@foreach ($medios as $m)
-					<option value="{{$m->medio_id}}">{{$m->nombre}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div class="form-group">
-				<div align="center">
-					<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-					<table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
-						<thead style="background-color:#A9D0F5">
-							<th>Opciones</th>
-							<th>Articulos</th>
-							<th>Cantidad</th>
-							
-							
-						</thead>
 
-						<tfoot>
-							<th></th>
-							<th></th>
-							<th></th>
-							
-							
-						</tfoot>
-						<tbody>
-							
-						</tbody>
-					</table>
 				</div>
-			</div>
-			<div class="modal-footer ">
-				
-				<button type="submit" class="btn btn-primary" id="GrabarE">Guardar</button>
+				<div class="form-group">
+					<label>Estado:</label>
+					<select name="estado" class="form-control selectpicker" data-live-search="true">
+						<option value="Aprobado">Aprobado</option>
+						<option value="Denegado">Denegado</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Cantidad:</label>
+					<input class="form-control" placeholder="Cantidad" name="pcantidad" id="pcantidad">
+				</div>
+				<div class="form-group">
+					<label>Medio:</label>
+					<select name="medio_id" class="form-control selectpicker" data-live-search="true" id="medio_id">
+						@foreach ($medios as $m)
+						<option value="{{$m->medio_id}}">{{$m->nombre}}</option>
+						@endforeach
+					</select>
+				</div>
+				<div class="form-group">
+					<div align="center">
+						<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+						<table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+							<thead style="background-color:#A9D0F5">
+								<th>Opciones</th>
+								<th>Articulos</th>
+								<th>Cantidad</th>
 
-			</div>
-			{!!Form::close()!!}
-		</div>		
+
+							</thead>
+
+							<tfoot>
+								<th></th>
+								<th></th>
+								<th></th>
+
+
+							</tfoot>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer ">
+
+					<button type="submit" class="btn btn-primary" id="GrabarE">Guardar</button>
+
+				</div>
+				{!!Form::close()!!}
+			</div>		
+		</div>
+		<!-- /.modal-content --> 
 	</div>
-	<!-- /.modal-content --> 
-</div>
-<!-- /.modal-dialog --> 
+	<!-- /.modal-dialog --> 
 </div>
 @push ('scripts')
 <script>
@@ -125,7 +125,7 @@
 	{
 		$("#pcantidad").val("");
 		$("#pmedio").val("");
-		$("#detalle").val("");
+		
 		//$("#pprecio_venta").val("");
 	}
 

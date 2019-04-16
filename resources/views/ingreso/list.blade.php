@@ -13,14 +13,18 @@
 			<td>{{ $i->fecha}}</td>
 			<td>{{ $i->name}}</td>
 			<td>{{ $i->estado}}</td>
-			<td><p onclick='Mostrar({{$i->in}});'   data-placement="top" data-toggle="tooltip" title="Edit"><button  class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#modal-show" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-			<td><a href="{{ route('ingresos.show', $i->in ) }}"><button class="btn btn-danger btn-xs" data-title="Delete"  ><span class="glyphicon glyphicon-trash"></span></button></a></td>
+			<td><a class="btn btn-default" href="{{ route ('ingresos.show',[$i->in])}}"><em class="fa fa-pencil"></em></a>
+			</td>
+			<td><p onclick='Eliminar({{$i->in}});' data-placement="top" data-toggle="tooltip" title="Anular"><button class="btn btn-danger btn-xs" data-title="Anular" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+			
 		</tr>
+
 		@endforeach
 	</tbody>
 
 
 </table>
+
 
 <div class="clearfix"></div>
 <ul class="pagination pull-right">

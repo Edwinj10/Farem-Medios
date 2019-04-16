@@ -12,11 +12,11 @@
 
 					<div class="form-group">
 						<label>Nombre:</label>
-						<input class="form-control" placeholder="Nombre" name="nombre" id="nombre">
+						<input class="form-control" placeholder="Nombre" name="nombre" id="nombre" required="">
 					</div>
 					<div class="form-group">
 						<label>Descripcion:</label>
-						<input class="form-control" placeholder="Descripcion" name="descripcion" id="descripcion">
+						<input class="form-control" placeholder="Descripcion" name="descripcion" id="descripcion" required="">
 					</div>
 					<div class="form-group">
 						<label>Marca:</label>
@@ -24,16 +24,27 @@
 					</div>
 					<div class="form-group">
 						<label>Color:</label>
-						<input class="form-control" placeholder="Color" name="color" id="color">
+						<input class="form-control" placeholder="Color" name="color" id="color" >
+					</div>
+					<div class="form-group">
+						<label>Stock:</label>
+						<input class="form-control" placeholder="Color" name="stock" id="stock" required="" value="0">
+					</div>
+					<div class="form-group">
+						<label>Departamento:</label>
+						<input class="form-control" placeholder="Departamento" name="departamento" id="departamento" required="">
 					</div>
 					<div class="form-group">
 						<label>Capacidad:</label>
-						<input class="form-control" placeholder="Capacidad" name="capacidad" id="capacidad">
+						<input class="form-control" placeholder="Capacidad" name="capacidad" id="capacidad"  value="0">
 					</div>
 					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 						<div class="form-group">
 							<label>Foto:</label>
-							<input type="file" name="foto" class="form-control">
+							
+							<input type="file" id="addfotoarea" name="foto" class="form-control">
+
+							<output id="list"></output>
 						</div>
 					</div>
 					<div class="modal-footer ">

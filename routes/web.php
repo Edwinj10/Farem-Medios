@@ -21,7 +21,19 @@ Route::get('/listall/{page?}', 'UsuarioController@listall');
 Route::resource('/medios', 'MediosController');
 Route::get('/listallmedios/{page?}', 'MediosController@listall');
 Route::resource('/ingresos', 'IngresoController');
+Route::resource('/periodos', 'PeriodoController');
+Route::resource('/reservaciones', 'ReservacionController');
 Route::get('/listallingresos/{page?}', 'IngresoController@listar');
+Route::get('/listallreservacion/{page?}', 'ReservacionController@listar');
+Route::get('/list_fechas/{fecha}', 'ReservacionController@list_fechas');
+Route::get('/list_fechas2/{fecha}/{page?}', 'ReservacionController@list_fechas2');
+Route::get('/listallreservacion2/{page?}', 'ReservacionController@listar2');
+Route::get('/reservaciones2', 'ReservacionController@index2');
+Route::get('/listP/{page?}', 'PeriodoController@listall');
+Route::get('/medios2', 'MediosController@index2');
+Route::get('/list_depto/{depto}/{page?}', 'MediosController@listall2');
+
+
 
 //index
 

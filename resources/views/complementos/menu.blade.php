@@ -12,15 +12,42 @@
     <div id="navbar" class="navbar-collapse collapse">
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#home">Inicio</a></li>
-        <li><a href="#product">Registrarse</a></li>
-        <li><a href="/login">Login</a></li>
-        <!-- <li><a href="#service">Services</a></li> -->
-        <!-- <li><a href="#blog">Blog</a></li> -->
-        <!-- <li><a href="#testimonial">Testimonials</a></li> -->
-        <li><a href="#contact">Contacto</a></li>
+        <li><a href="/">Inicio</a></li>
+        @if (Auth::guest())
 
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
+        <li><a href="/register">Registrarse</a></li>
+        <li><a href="/login">Login</a></li>
+
+        @else
+        @if (Auth::user()->tipo == "Administrador") 
+        <li><a href="/home">Administracion</a></li>
+        <li>  <a class="dropdown-item" href="{{ route('logout') }}"
+          onclick="event.preventDefault();
+          document.getElementById('logout-form').submit();">
+          Salir
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
+      </li>
+      @else
+      <li><a href="/reservaciones2">Reservar</a></li>
+      <li>  <a class="dropdown-item" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();">
+        Salir
+      </a>
+
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
+      @endif
+      <!-- <li><a href="#blog">Blog</a></li> -->
+      <!-- <li><a href="#testimonial">Testimonials</a></li> -->
+      <!-- <li><a href="#contact">Contacto</a></li> -->
+      @endif
+    </ul>
+  </div><!--/.nav-collapse -->
+</div>
 </nav>

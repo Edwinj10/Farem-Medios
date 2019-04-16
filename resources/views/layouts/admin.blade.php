@@ -25,7 +25,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span></button>
-					<a class="navbar-brand" href="#"><span>FAREM  </span>Admin</a>
+					<a class="navbar-brand" href="/"><span>FAREM  </span>Admin</a>
 
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 		<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 			<div class="profile-sidebar">
 				<div class="profile-userpic">
-					<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+					<img src="/imagenes/usuarios/{{ Auth::user()->foto }}" class="img-responsive" alt="">
 				</div>
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">{{ Auth::user()->name }} {{ Auth::user()->apellido }}</div>
@@ -42,11 +42,7 @@
 				<div class="clear"></div>
 			</div>
 			<div class="divider"></div>
-			<form role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</form>
+			@if (Auth::user()->tipo == "Administrador") 
 			<ul class="nav menu">
 				<li class="parent active "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-users">&nbsp;</em> Usuarios <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -70,45 +66,65 @@
 				<li><a class="" href="/medios">
 					<span class="fa fa-arrow-right">&nbsp;</span> Listar
 				</a></li>
+				<li><a class="" href="/ingresos">
+					<span class="fa fa-arrow-right">&nbsp;</span> Ingresos
+				</a></li>
 			</ul>
 		</li>
 		
 	</ul>
 	<ul class="nav menu">
-		<li class="parent "><a data-toggle="collapse" href="#sub-item-4">
-			<em class="fa fa-laptop">&nbsp;</em> Ingresos <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
-		</a>
-		<ul class="children collapse" id="sub-item-4">
 
-			<li><a class="" href="/ingresos">
+		<li class="parent "><a data-toggle="collapse" href="#sub-item-5">
+			<em class="fa fa-book">&nbsp;</em> Periodos <span data-toggle="collapse" href="#sub-item-5" class="icon pull-right"><em class="fa fa-plus"></em></span>
+		</a>
+		<ul class="children collapse" id="sub-item-5">
+			<li><a class="" href="/periodos">
 				<span class="fa fa-arrow-right">&nbsp;</span> Listar
 			</a></li>
 		</ul>
 	</li>
-
 </ul>
 <ul class="nav menu">
+	
 	<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
 		<em class="fa fa-book">&nbsp;</em> Reservaciones <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
 	</a>
 	<ul class="children collapse" id="sub-item-3">
-		<li><a class="" href="#">
-			<span class="fa fa-arrow-right">&nbsp;</span> Agregar
-		</a></li>
-		<li><a class="" href="#">
+		<li><a class="" href="/reservaciones">
 			<span class="fa fa-arrow-right">&nbsp;</span> Listar
 		</a></li>
 	</ul>
 </li>
-<li><a class="dropdown-item" href="{{ route('logout') }}"
-	onclick="event.preventDefault();
-	document.getElementById('logout-form').submit();">
-	{{ __('Logout') }}
-</a>
+</ul>
+@else
 
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-	@csrf
-</form>
+<ul class="nav menu">
+	
+	<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+		<em class="fa fa-book">&nbsp;</em> Reservaciones <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+	</a>
+	<ul class="children collapse" id="sub-item-3">
+		<li><a class="" href="/reservaciones2">
+			<span class="fa fa-arrow-right">&nbsp;</span> Listar
+		</a></li>
+	</ul>
+</li>
+</ul>
+
+
+@endif  
+
+<ul class="nav menu">
+	<li><a class="dropdown-item" href="{{ route('logout') }}"
+		onclick="event.preventDefault();
+		document.getElementById('logout-form').submit();">
+		{{ __('Logout') }}
+	</a>
+
+	<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+		@csrf
+	</form>
 </li>
 </ul>
 
@@ -131,7 +147,9 @@
 
 
 <script src="/lumino/js/jquery-1.11.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="/lumino/js/bootstrap.min.js"></script>
+<script src="/js/precargar.js"></script>
 <link rel="stylesheet" type="text/css" href="/lumino/js/jquery.alertable.css">
 <script type="text/javascript" src="/lumino/js/jquery.alertable.js"></script>
 <script type="text/javascript" src="/js/jquery.form.js"></script>
@@ -142,6 +160,7 @@
 <script src="/lumino/js/bootstrap-datepicker.js"></script>
 <script src="/lumino/js/custom.js"></script>
 <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
+
 
 {!!Html::script('/js/tabla.js')!!}
 @stack('scripts')

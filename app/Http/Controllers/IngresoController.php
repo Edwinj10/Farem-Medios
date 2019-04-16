@@ -22,7 +22,10 @@ class IngresoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => 'index', 'listar']);
+        // para los midelware
+        $this->middleware('admin', ['only' => ['index', 'listar']]);
+        
     }
     public function index(Request $request)
     {
@@ -44,7 +47,16 @@ class IngresoController extends Controller
           ->select('m.id as medio_id', 'm.nombre')
           ->get();
 
-          return view('ingreso.index',['ingresos'=>$ingresos, 'medios'=>$medios, "searchText"=>$query]);
+          $detalle=DB::table('ingresos as i')
+          ->join('users as u', 'i.usuario_id', '=', 'u.id')
+          ->join('detalle__ingresos as di', 'i.id', '=', 'di.ingreso_id')
+            // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
+          ->select('i.*','i.id as in','di.*')
+            //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
+          ->orderBy('i.id', 'desc')
+          ->get();
+
+          return view('ingreso.index',['ingresos'=>$ingresos, 'medios'=>$medios, "searchText"=>$query, 'detalle'=>$detalle]);
 
       }
   }
@@ -70,8 +82,20 @@ class IngresoController extends Controller
         ->select('m.id as medio_id', 'm.nombre')
         ->get();
 
+        $detalle=DB::table('ingresos as i')
+        ->join('users as u', 'i.usuario_id', '=', 'u.id')
+        ->join('detalle__ingresos as di', 'i.id', '=', 'di.ingreso_id')
+        ->join('medios as m', 'm.id', '=', 'medio_id')
+            // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
+        ->select('i.*','i.id as in','di.*', 'm.*', 'u.*')
+            //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
+        ->orderBy('i.id', 'desc')
+        ->paginate(6);
 
-        return view('ingreso.list',['ingresos'=>$ingresos, 'medios'=>$medios, "searchText"=>$query]);
+
+
+
+        return view('ingreso.list',['ingresos'=>$ingresos, 'medios'=>$medios, "searchText"=>$query, 'detalle'=>$detalle]);
 
     }
 }
@@ -130,10 +154,13 @@ public function show($id)
     $i=DB::table('ingresos as i')
     ->join('users as u', 'i.usuario_id', '=', 'u.id')
     ->join('detalle__ingresos as di', 'i.id', '=', 'di.ingreso_id')
-    ->select('i.*', 'u.*', 'di.*')
+    ->select('i.*', 'u.name','u.id','u.apellido', 'di.*')
     ->where('i.id', '=',$id)
 
     ->first();
+
+
+
 
     $detalles=DB::table('detalle__ingresos as d')
     ->join('medios as m', 'd.medio_id', '=', 'm.id')
@@ -151,9 +178,16 @@ public function show($id)
 public function destroy($id)
 {
     $ingreso=Ingreso::findOrFail($id);
-    $ingreso->Estado='Cancelada';
-    $ingreso->update();
-    return Redirect::to('/ingreso');
+    $ingreso->estado='Anulado';
+    $result = $ingreso->update();
+    if ($result) 
+    {
+        return response()->json(['success' => 'true']);
+    }
+    else
+    {
+        return response()->json(['success'=>'false']);
+    }
 }
 
 

@@ -19,7 +19,8 @@
 
   </div>
   @include('ingreso.modal-create')
-  @include('ingreso.show')
+  
+
 
   
 </div>
@@ -65,19 +66,43 @@
         });
       }
 
-      var Mostrar = function(id)
+      var Eliminar = function(id)
       {
-        var route = "{{url('/ingresos')}}/" +id;
-        $.get(route, function(data){
-          $("#id").val(data.id);
-          $("#nombre").val(data.nombre);
-          $("#apellidoedit").val(data.apellido);
-          $("#emailedit").val(data.email);
-          $("#tipoedit").val(data.tipo);
-          $("#estadoedit").val(data.estado);
+      // Alert Jquery
+      $.alertable. confirm ("Está seguro de anular el registro?").then(function(){
+        var route = "{{url('ingresos')}}/" +id+"";
+        var token = $('#token').val();
 
+        $.ajax({
+          url : route ,
+          headers: {'X-CSRF-TOKEN':token},
+          type: 'DELETE',
+          datatype : 'json' ,
+          success: function(data){
+            if (data.success == 'true') 
+            {
+            listIngresos();
+              // $("#message-delete").fadeIn();
+              $('#message-delete').show().delay(2000).fadeOut(2);
+            }
+          }
         });
-      }
+      });
+    };
+
+      // var Mostrar = function(id)
+      // {
+      //   var route = "{{url('/ingresos')}}/" +id;
+      //   $.get(route, function(data){
+      //     $("#id").val(data.id);
+      //     $("#nombre").val(data.nombre);
+      //     $("#apellidoedit").val(data.apellido);
+      //     $("#emailedit").val(data.email);
+      //     $("#tipoedit").val(data.tipo);
+      //     $("#estadoedit").val(data.estado);
+
+      //   });
+      // }
 
 
     </script>

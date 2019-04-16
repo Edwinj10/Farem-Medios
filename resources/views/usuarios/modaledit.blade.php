@@ -12,23 +12,21 @@
 
 				<div class="form-group">
 					<label>Nombre:</label>
-					<input class="form-control" placeholder="Nombre" name="nameedit" id="nameedit">
+					<input class="form-control" placeholder="Nombre" name="nameedit" id="nameedit" required="">
 				</div>
 				<div class="form-group">
 					<label>Apellido:</label>
-					<input class="form-control" placeholder="Apellido" name="apellidoedit" id="apellidoedit">
+					<input class="form-control" placeholder="Apellido" name="apellidoedit" id="apellidoedit" required="">
 				</div>
 				<div class="form-group">
 					<label>Email:</label>
-					<input class="form-control" placeholder="Email" name="emailedit" id="emailedit">
+					<input class="form-control" placeholder="Email" name="emailedit" id="emailedit" required="">
 				</div>
 				<div class="form-group">
 					<label>Tipo:</label>
-					<select name="tipoedit" class="form-control selectpicker" data-live-search="true">
-						<option value="tipoedit" value="tipoedit" id="tipoedit"></option>
-						<option value="Activo">Activo</option>
-						<option value="Inactivo">Inactivo</option>
-					</select>
+					
+					<input class="form-control" placeholder="Estado" name="tipoedit" id="tipoedit">
+					
 					<div class="form-group">
 						<label>Estado:</label>
 						<input class="form-control" placeholder="Estado" name="estadoedit" id="estadoedit">

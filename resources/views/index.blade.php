@@ -5,8 +5,8 @@
  <div class="container">
    <div class="row">
      <div class="col-md-6 col-sm-12 content-sec">
-      <h1>Beinvenidos</h1>
-      <p>Yes</p>
+      <h1>Bienvenidos</h1>
+      <p>Sistema de Reservación de Medios  | FAREM-Estelí |</p>
       <!-- <p><a class="btn btn-tranparent btn-lg" href="#" role="button">Learn more</a></p> -->
     </div>
   </div>

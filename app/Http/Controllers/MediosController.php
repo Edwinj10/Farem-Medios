@@ -20,13 +20,24 @@ class MediosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'index', 'listall']);
+        // para los midelware
+        $this->middleware('admin', ['only' => ['index', 'listall']]);
+        
+    }
     public function index()
     {
         $medios=DB::table('medios as m')
         ->select('m.*')
         ->paginate(40);
 
-        return view('medios.index', ["medios"=>$medios]);
+         $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->paginate(40);
+
+        return view('medios.index', ["medios"=>$medios, 'medios2'=>$medios2]);
     }
 
     public function listall()
@@ -35,7 +46,27 @@ class MediosController extends Controller
         ->select('m.*')
         ->paginate(40);
 
-        return view('medios.list', ["medios"=>$medios]);
+         $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->paginate(40);
+
+        return view('medios.list', ["medios"=>$medios, 'medios2'=>$medios2]);
+    }
+
+    
+
+    public function listall2($depto)
+    {
+        $medios=DB::table('medios as m')
+        ->select('m.*')
+        ->where('m.departamento', '=', $depto)
+        ->paginate(40);
+
+        $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->paginate(40);
+
+        return view('medios.list2', ["medios"=>$medios , 'medios2'=> $medios2]);
     }
 
     /**
@@ -56,7 +87,7 @@ class MediosController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
             // 'nombre' => 'required',
             // 'apodo' => 'required',
             // 'sitio_web' => 'required',
@@ -65,10 +96,10 @@ class MediosController extends Controller
             // 'descripcion' => 'required',
             // 'nombre_estadio' => 'required',
             // 'ligas_id' => 'required',
-       ]);
+     ]);
 
 
-       if ($validator->passes()) {
+     if ($validator->passes()) {
 
 
         $input = $request->all();
@@ -121,7 +152,7 @@ class MediosController extends Controller
     {
         if ($request->ajax())
         {
-            $medios = User::findOrFail($id);
+            $medios = Medio::findOrFail($id);
             $input =  $request->all();
             $result = $medios->fill($input)->save();
 

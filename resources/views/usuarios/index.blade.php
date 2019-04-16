@@ -10,13 +10,13 @@
 	<div id="message-save" class="alert alert-success success" role="alert" style="display: none ">
 		<strong id="save">Guardado Correctamente</strong>
 	</div>
-	<div id="message-delete" class="alert alert-info" role="alert" style="display: none ">
-		<strong>El registro se elimino correctamente</strong>
-	</div>
-	<div class="table-responsive" id="list-usuarios">
+  <div id="message-delete" class="alert alert-info" role="alert" style="display: none ">
+    <strong>El registro se elimino correctamente</strong>
+  </div>
+  <div class="table-responsive" id="list-usuarios">
 
 
-	</div>
+  </div>
 
 </div>
 </div>
@@ -30,9 +30,9 @@
 	$(document).ready(function () {
 		$('#mostrar_contrasena').click(function () {
 			if ($('#mostrar_contrasena').is(':checked')) {
-				$('#password').attr('type', 'text');
-			} else {
 				$('#password').attr('type', 'password');
+			} else {
+				$('#password').attr('type', 'text');
 			}
 		});
 	});
@@ -54,6 +54,8 @@
       		}
       	});
       });
+
+
       // listar
       var listUsuarios = function()
       {
@@ -67,52 +69,96 @@
       	});
       }
 
-      $('#GrabarE').click(function(event)
-      {
-      	var name = $('#name').val();
-      	var apellido = $('#apellido').val();
-      	var email = $('#email').val();
-      	var tipo = $('#tipo').val();
-      	var estado = $('#estado').val();
-      	var password = $('#password').val();
-      	var token = $("input[name=_token]").val();
-      	var route = "{{route('usuarios.store')}}";
-
-      	$.ajax({
-      		url : route ,
-      		headers: {'X-CSRF-TOKEN':token},
-      		type: 'post',
-      		datatype : 'json' ,
-      		data: {name: name, apellido:apellido, email:email, tipo:tipo, estado:estado, password:password},
-      		success:function(data)
-      		{
-      			if (data.success == 'true')
-      			{
-
-              // alert('Comentario Guardado Correctamente');
-              // $('#save').fadeOut(1500);
-              $('#name').val('');
-              $('#apellido').val('');
-              $('#email').val('');
-              $('#password').val('');
-              $('#create').modal('toggle');
-              // $('#message-save').fadeIn(1500);
-              $('#message-save').show().delay(2000).fadeOut(2);
-              listUsuarios();
-
-          }
-      },
-      error:function(data)
-      {
-            // console.log(data.responseJSON.comentario);
-            $("#error").html(data.responseJSON.etiqueta);
-            $('#message-error').show().delay(2000).fadeOut(2);
-        }
-    })
-
+      // guardar
+      $("body").on("click",".upload-image",function(e){
+        $(this).parents("form").ajaxForm(options);
       });
 
+      var options = { 
+        complete: function(response) 
+        {
+          if($.isEmptyObject(response.responseJSON.error)){
+            $("input[name='name']").val('');
+            $("input[name='email']").val('');
+            $("input[name='password']").val('');
+            $("input[name='apellido']").val('');
+            $("input[name='tipo']").val('');
+            $("input[name='estado']").val('');
+            
+            // alert('Image Upload Successfully.');
+            
 
+            $("input[name='name']").val('');
+            $("input[name='email']").val('');
+            $("input[name='password']").val('');
+            $("input[name='apellido']").val('');
+            $("input[name='tipo']").val('');
+            $("input[name='estado']").val('');
+            //$('#create').hide();
+            $('#create').modal('toggle');
+            // $('#panel').toggle(1000);
+            $('#message-save').show().delay(2000).fadeOut(2);
+            listUsuarios();
+            //$("#save-equipos").hide();
+
+          }else{
+            printErrorMsg(response.responseJSON.error);
+            $('#message-error').show().delay(4000).fadeOut(2);
+          }
+        }
+      };
+      function printErrorMsg (msg) {
+        $("#message-error").find("ul").html('');
+        $("#message-error").css('display','block');
+        $.each( msg, function( key, value ) {
+          $("#message-error").find("ul").append('<li>'+value+'</li>');
+        });
+      }
+
+      // $('#GrabarE').click(function(event)
+      // {
+      // 	var name = $('#name').val();
+      // 	var apellido = $('#apellido').val();
+      // 	var email = $('#email').val();
+      // 	var tipo = $('#tipo').val();
+      // 	var estado = $('#estado').val();
+      // 	var password = $('#password').val();
+      // 	var token = $("input[name=_token]").val();
+      // 	var route = "{{route('usuarios.store')}}";
+
+      // 	$.ajax({
+      // 		url : route ,
+      // 		headers: {'X-CSRF-TOKEN':token},
+      // 		type: 'post',
+      // 		datatype : 'json' ,
+      // 		data: {name: name, apellido:apellido, email:email, tipo:tipo, estado:estado, password:password},
+      // 		success:function(data)
+      // 		{
+      // 			if (data.success == 'true')
+      // 			{
+
+      //         // alert('Comentario Guardado Correctamente');
+      //         // $('#save').fadeOut(1500);
+      //         $('#name').val('');
+      //         $('#apellido').val('');
+      //         $('#email').val('');
+      //         $('#password').val('');
+      //         $('#create').modal('toggle');
+      //         // $('#message-save').fadeIn(1500);
+      //         $('#message-save').show().delay(2000).fadeOut(2);
+      //         listUsuarios();
+
+      //       }
+      //     },
+      //     error:function(data)
+      //     {
+      //       // console.log(data.responseJSON.comentario);
+      //       $("#errors").html(data.responseJSON.etiqueta);
+      //       $('#message').show().delay(2000).fadeOut(2);
+      //     }
+      //   })
+
+      // });
 
 
       var Mostrar = function(id)
@@ -160,19 +206,19 @@
             $('#message-save').show().delay(2000).fadeOut(2);
             // $("#message-update").fadeIn(1500);
 
-        }
-    },
-    error:function(data)
-    {
-    	$('#error_edit').html(data.responseJSON.name);
-    	$('#message-error_edit').fadeIn();
+          }
+        },
+        error:function(data)
+        {
+         $('#error_edit').html(data.responseJSON.name);
+         $('#message-error_edit').fadeIn();
            // $('#message-error_edit').show().delay(2000).fadeOut(2);
            if (data.status == 422) 
            {
            	console.clear();
            }
-       }
-   });
+         }
+       });
       });
 
 
@@ -198,12 +244,12 @@
       				listUsuarios();
               // $("#message-delete").fadeIn();
               $('#message-delete').show().delay(2000).fadeOut(2);
+            }
           }
-      }
-  });
+        });
       });
-  };
+    };
 
-</script>
-@endpush
-@endsection
+  </script>
+  @endpush
+  @endsection

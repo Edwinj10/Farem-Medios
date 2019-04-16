@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 /*Declarar estas lbrerias , las uso en el metodo edit*/
 use Session;
 use DB;
 use Auth;
+use Validator;
 
 class UsuarioController extends Controller
 {
@@ -23,6 +26,14 @@ class UsuarioController extends Controller
     //     $this->middleware('auth');
     //     $this->middleware('admin', ['only'=> ['create', 'edit']]);
     // }
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'index', 'listall']);
+        // para los midelware
+        $this->middleware('admin', ['only' => ['index', 'listall']]);
+        
+    }
+
 
     public function index()
     {
@@ -60,20 +71,37 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ajax()) 
-        {
-            $result = User::create($request->all());
-            
-            if ($result) {
-                Session::flash('save', 'Se ha creado Correctamente');
-                return response()->json(['success' => 'true']);
-            }
-            else
-            {
-                return response()->json(['success' => 'false']);
-            }
-        } 
+     $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6'],
+            'apellido' => ['required', 'string', 'max:255'],
+            'foto' => 'required|mimes:jpeg,bmp,png',
+     ]);
+
+
+     if ($validator->passes()) {
+
+
+        $input = $request->all();
+
+            // el mejor codigo
+        $input['password']=bcrypt($request->password);
+        $input['foto'] = time().'.'.$request->foto->getClientOriginalExtension();
+        $request->foto->move(public_path('/imagenes/usuarios/'), $input['foto']);
+
+        User::create($input);
+
+
+        return response()->json(['success'=>'done']);
     }
+
+
+    return response()->json(['error'=>$validator->errors()->all()]);
+}
+
+
+
 
     /**
      * Display the specified resource.
