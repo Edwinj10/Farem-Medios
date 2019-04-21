@@ -45,8 +45,8 @@
 					<input class="form-control" placeholder="Capacidad" name="capacidadedit" id="capacidadedit" required="">
 				</div>
 				<div class="form-group">
-					<label>Stock:</label>
-					<input class="form-control" placeholder="Stock" name="stockedit" id="stockedit" required="">
+					<label>Estado:</label>
+					<input class="form-control" placeholder="Estado" name="estadoedit" id="estadoedit" required="">
 				</div>
 				<div class="form-group">
 					<label>Departamento:</label>

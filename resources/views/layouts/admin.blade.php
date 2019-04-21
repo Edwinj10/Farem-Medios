@@ -42,7 +42,7 @@
 				<div class="clear"></div>
 			</div>
 			<div class="divider"></div>
-			@if (Auth::user()->tipo == "Administrador") 
+			@if (Auth::user()->tipo == "Administrador" ||  Auth::user()->tipo == "SuperAdmin") 
 			<ul class="nav menu">
 				<li class="parent active "><a data-toggle="collapse" href="#sub-item-1">
 					<em class="fa fa-users">&nbsp;</em> Usuarios <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -66,9 +66,9 @@
 				<li><a class="" href="/medios">
 					<span class="fa fa-arrow-right">&nbsp;</span> Listar
 				</a></li>
-				<li><a class="" href="/ingresos">
+				<!-- <li><a class="" href="/ingresos">
 					<span class="fa fa-arrow-right">&nbsp;</span> Ingresos
-				</a></li>
+				</a></li> -->
 			</ul>
 		</li>
 		

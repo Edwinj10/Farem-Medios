@@ -15,7 +15,7 @@
 	</div>
   <div class="form-group">
     <label for="">Departamentos:</label> 
-    <select name="medio_id" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="medio_id">
+    <select name="depto" class="form-control selectpicker"  data-live-search="true" id="depto">
       <option value="">Eliga el departamento</option>
       @foreach ($medios2 as $m2)
       <option value="{{$m2->departamento}}">{{$m2->departamento}}</option>
@@ -23,7 +23,16 @@
       @endforeach
     </select>
   </div>
+  <div class="form-group">
+    <label for="">Nombre:</label> 
+    <select name="estado" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="estado">
+      <option value="">Eliga el Estado</option>
+      @foreach ($medios2 as $m)
+      <option value="{{$m->nombre}}">{{$m->nombre}}</option>
 
+      @endforeach
+    </select>
+  </div>
   <div class="table-responsive" id="list-medios">
 
 
@@ -87,6 +96,7 @@
             $("input[name='color']").val('');
             $("input[name='capacidad']").val('');
             $("input[name='stock']").val('');
+            $("input[name='estado']").val('');
             $("input[name='departamento']").val('');
             // alert('Image Upload Successfully.');
             
@@ -96,6 +106,7 @@
             $("input[name='marca']").val('');
             $("input[name='color']").val('');
             $("input[name='capacidad']").val('');
+            $("input[name='estado']").val('');
             $("input[name='stock']").val('');
             $("input[name='departamento']").val('');
             //$('#create').hide();
@@ -155,7 +166,7 @@
         $("#marcaedit").val(data.marca);
         $("#coloredit").val(data.color);
         $("#capacidadedit").val(data.capacidad);
-        $("#stockedit").val(data.stock);
+        $("#estadoedit").val(data.estado);
         $("#departamentoedit").val(data.departamento);
         $("#fotoedit").val(data.foto);
       });
@@ -171,7 +182,7 @@
       var marcaedit = $('#marcaedit').val();
       var coloredit = $('#coloredit').val();
       var capacidadedit = $('#capacidadedit').val();
-      var stockedit = $('#stockedit').val();
+      var estadoedit = $('#estadoedit').val();
       var departamentoedit = $('#departamentoedit').val();
       var route = "{{url('medios')}}/" +id+"";
       var token = $('#token').val();
@@ -181,7 +192,7 @@
         headers: {'X-CSRF-TOKEN':token},
         type: 'PUT',
         datatype : 'json' ,
-        data: {nombre:nombreedit,descripcion:descripcionedit,marca:marcaedit,color:coloredit,capacidad:capacidadedit, stock:stockedit, departamento:departamentoedit },
+        data: {nombre:nombreedit,descripcion:descripcionedit,marca:marcaedit,color:coloredit,capacidad:capacidadedit, departamento:departamentoedit, estado:estadoedit },
         success: function(data){
           if (data.success == 'true') 
           {
@@ -210,9 +221,14 @@
     function Capturar()
     {
     // declaramos un arreglo y lo recorremos
-    var cap=$('#medio_id option:selected').val();
+    var depto=$('#depto option:selected').val();
+    var estado=$('#estado option:selected').val();
+
+    var auxiliar= depto+ '/'+estado;
+    
+    var ruta='/list_depto/'+ auxiliar;
     // var fechas= $('#datepicker').val();
-    var ruta='/list_depto/'+ cap;
+    
     window.location.href=ruta;
   }
 </script>

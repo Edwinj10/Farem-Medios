@@ -28,7 +28,8 @@
 				</div>
 				<div class="form-group">
 					<label for="">Medios:</label> 
-					<select name="medio_id" class="form-control selectpicker" data-live-search="true" id="medio_id">
+					<select name="medio_id" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="medio_id">
+						<option value="	">Seleccione</option>
 						@foreach ($medios as $m)
 						<option value="{{$m->medio_id}}_{{$m->stock}}">{{$m->nombre}} / {{$m->departamento}}</option>
 						
@@ -57,7 +58,7 @@
 					<select name="turnos" class="form-control" id="turnos">
 						<option value=""></option>
 						@foreach ($periodos as $p)
-						<option value="{{$p->turno2}}">{{$p->turno2}}</option>
+						<option value="{{$p->turno2}}">{{$p->turno2}} {{$p->hora_inicio}} {{$p->hora_fin}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -106,11 +107,11 @@
 						@endforeach
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="form-group" id="estado">
 					<label>Estado:</label>
 					<select name="estado" class="form-control selectpicker" data-live-search="true">
-						<option value="Aprobado">Aprobado</option>
-						<option value="Denegado">Denegado</option>
+						<option value="Espera">Espera</option>
+						
 					</select>
 				</div>
 				<div class="form-group">
@@ -175,6 +176,7 @@
 	$("#sabatino2").hide();
 	$("#dominical2").hide();
 	$('#medio_id').change(mostrarValores);
+	$('#estado').hide();
 
 	function mostrarValores()
 	{
@@ -363,6 +365,22 @@
 		$("#fila" + index).remove();
 		evaluar();
 	}
+
+	function Capturar()
+	{
+    // declaramos un arreglo y lo recorremos
+    
+    datosArticulo=document.getElementById('medio_id').value.split('_')
+    medio=datosArticulo[0];
+    var fecha=$('#fecha').val();
+
+    var auxiliar= medio+ '/'+fecha;
+    
+    var ruta='/list_fecha/'+ auxiliar;
+    // var fechas= $('#datepicker').val();
+    
+    window.location.href=ruta;
+}
 
 </script>
 @endpush

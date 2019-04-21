@@ -34,7 +34,7 @@ class MediosController extends Controller
         ->paginate(40);
 
          $medios2=DB::table('medios as m')
-        ->select('m.departamento')
+        ->select('m.departamento', 'm.nombre')
         ->paginate(40);
 
         return view('medios.index', ["medios"=>$medios, 'medios2'=>$medios2]);
@@ -47,7 +47,7 @@ class MediosController extends Controller
         ->paginate(40);
 
          $medios2=DB::table('medios as m')
-        ->select('m.departamento')
+        ->select('m.departamento', 'm.nombre')
         ->paginate(40);
 
         return view('medios.list', ["medios"=>$medios, 'medios2'=>$medios2]);
@@ -55,15 +55,16 @@ class MediosController extends Controller
 
     
 
-    public function listall2($depto)
+    public function listall2($depto, $nombre)
     {
         $medios=DB::table('medios as m')
         ->select('m.*')
         ->where('m.departamento', '=', $depto)
+        ->where('m.nombre', '=', $nombre)
         ->paginate(40);
 
         $medios2=DB::table('medios as m')
-        ->select('m.departamento')
+        ->select('m.departamento', 'm.nombre')
         ->paginate(40);
 
         return view('medios.list2', ["medios"=>$medios , 'medios2'=> $medios2]);

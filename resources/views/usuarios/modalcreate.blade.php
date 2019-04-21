@@ -35,6 +35,7 @@
 						<select name="tipo" class="form-control selectpicker" data-live-search="true" id="tipo">
 							<option value="Usuario">Usuario</option>
 							<option value="Administrador">Administrador</option>
+							<option value="SuperAdmin">SuperAdministrador</option>
 						</select>
 					</div>
 					<div class="form-group">

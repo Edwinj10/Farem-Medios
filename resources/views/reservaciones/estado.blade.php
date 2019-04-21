@@ -29,14 +29,105 @@
 								<option value="Anulado">Anulado</option>
 							</select>
 						</div>
+						
+						<div class="form-group" hidden="">	
+						</div>
+
+						
+					</div>
+					<div class="col-lg-10 col-md-8 col-sm-8 col-xs-12" hidden="">
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-condensed table-hover">
+
+								<thead>
+									<th>Medio</th>
+									<th>Cantidad</th>
+									<th>Stock</th>
+									<th>Marca</th>
+									<th>Color</th>
+									<th>Descripcion</th>
+									<th>Capacidad</th>
+									<th>Foto</th>
+								</thead>
+								@foreach ($detalles as $d)
+								<tr>
+
+									<td>{{ $d->nombre}}</td>
+									<td>{{ $d->cantidad}}</td>
+									<td>{{ $d->stock}}</td>
+									<td>{{ $d->marca}}</td>
+									<td>{{ $d->color}}</td>
+									<td>{{ $d->descripcion}}</td>
+									<td>{{ $d->capacidad}}</td>
+									<td>
+										<img src="{{asset('imagenes/medios/'.$d->foto)}}" alt="{{ $d->nombre}}" height="100px" width="100px" class="img-thumbail">
+									</td>
+
+								</tr>
+
+								@endforeach
+
+							</table>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					<button type="submit" class="btn btn-primary">Confirmar</button>
+					<button type="button" id="bt_add" class="btn btn-primary">Agregar</button>
 				</div>
 			</div>
 		</div>
 
 		{{Form::close()}}
 	</div>
+
+	@push ('scripts')
+	<script>
+		(document).ready(function(){
+			$('#bt_add').click(function(){
+				agregar();
+
+			});
+		});
+
+		var cont=0;
+
+		function mostrarValores()
+		{
+			datosArticulo=document.getElementById('medio_id').value.split('_')
+			$('#pstock').val(datosArticulo[1]);
+		}
+
+		
+		function agregar()
+		{
+
+			datosArticulo=document.getElementById('medio_id').value.split('_')
+			medio_id=datosArticulo[0];
+		// medio_id=$('#medio_id').val();
+		medio=$('#medio').text();
+		cantidad=$('#pcantidad').val();
+		stock=$('#pstock').val();
+
+
+
+
+		var fila='<tr class="selected" id="fila' +cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="medio_id[]" value="'+medio_id+'">'+medio+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"></td></tr>';
+		cont++;
+		limpiar();
+		evaluar();
+
+		$('#detalles').append(fila);
+	}
+
+	function limpiar()
+	{
+		$("#pcantidad").val("");
+		$("#pmedio").val("");
+		$("#detalle").val("");
+		//$("#pprecio_venta").val("");
+	}
+
+</script>
+@endpush

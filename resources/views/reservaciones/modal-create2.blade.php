@@ -29,8 +29,9 @@
 				<div class="form-group">
 					<label for="">Medios:</label> 
 					<select name="medio_id" class="form-control selectpicker" data-live-search="true" id="medio_id">
+						<option value="	">Seleccione</option>
 						@foreach ($medios as $m)
-						<option value="{{$m->medio_id}}_{{$m->stock}}">{{$m->nombre}}</option>
+						<option value="{{$m->medio_id}}_{{$m->stock}}">{{$m->nombre}} / {{$m->departamento}}</option>
 						
 						@endforeach
 					</select>

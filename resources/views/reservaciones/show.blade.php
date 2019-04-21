@@ -67,7 +67,7 @@
 
         <thead>
           <th>Medio</th>
-          <th>Cantidad</th>
+          <th>Stock</th>
           <th>Marca</th>
           <th>Color</th>
           <th>Descripcion</th>
@@ -77,8 +77,8 @@
         @foreach ($detalles as $d)
         <tr>
 
-          td>{{ $d->nombre}}</td>
-          <td>{{ $d->cantidad}}</td>
+          <td>{{ $d->nombre}}</td>
+          <td>{{ $d->stock}}</td>
           <td>{{ $d->marca}}</td>
           <td>{{ $d->color}}</td>
           <td>{{ $d->descripcion}}</td>
@@ -90,6 +90,7 @@
         </tr>
         
         @endforeach
+
       </table>
     </div>
   </div>

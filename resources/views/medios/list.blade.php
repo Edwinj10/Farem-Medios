@@ -7,6 +7,7 @@
 		<th>Color</th>
 		<th>Capacidad</th>
 		<th>Stock</th>
+		<th>Estado</th>
 		<th>Foto</th>
 		<th>Departamento</th>
 		<th>Editar</th>
@@ -21,6 +22,7 @@
 			<td>{{ $m->color}}</td>
 			<td>{{ $m->capacidad}}</td>
 			<td>{{ $m->stock}}</td>
+			<td>{{ $m->estado}}</td>
 			<td><img src="{{asset('imagenes/medios/'.$m->foto)}}" alt="{{ $m->nombre}}" height="100px" width="100px" class="img-thumbail">
 			</td>
 			<td>{{ $m->departamento}}</td>

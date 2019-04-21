@@ -31,7 +31,8 @@ Route::get('/listallreservacion2/{page?}', 'ReservacionController@listar2');
 Route::get('/reservaciones2', 'ReservacionController@index2');
 Route::get('/listP/{page?}', 'PeriodoController@listall');
 Route::get('/medios2', 'MediosController@index2');
-Route::get('/list_depto/{depto}/{page?}', 'MediosController@listall2');
+Route::get('/list_depto/{depto}/{nombre}/{page?}', 'MediosController@listall2');
+Route::get('/list_fecha/{medio}/{fecha}/{page?}', 'ReservacionController@mostrar');
 
 
 

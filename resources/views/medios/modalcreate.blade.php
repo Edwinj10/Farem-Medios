@@ -26,9 +26,17 @@
 						<label>Color:</label>
 						<input class="form-control" placeholder="Color" name="color" id="color" >
 					</div>
-					<div class="form-group">
+					<div class="form-group" hidden="">
 						<label>Stock:</label>
-						<input class="form-control" placeholder="Color" name="stock" id="stock" required="" value="0">
+						<input type="text"  name="stock" id="stock"  class="form-group" placeholde="Stock" value="1">
+					</div>
+					<div class="form-group">
+						<label>Estado:</label>
+						<select name="estado" class="form-control" data-live-search="true" id="estado">
+							<option value="">Eliga una opcion</option>
+							<option value="Activo">Activo</option>
+							<option value="Mantenimiento">Mantenimiento</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label>Departamento:</label>

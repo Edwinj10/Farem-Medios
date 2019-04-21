@@ -14,62 +14,72 @@
 		<strong>El registro se elimino correctamente</strong>
 	</div>
 	<div class="form-group">
-		<label for="">Departamentos:</label> 
-		<select name="medio_id" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="medio_id">
-			 <option value="">Eliga el departamento</option>
-			@foreach ($medios2 as $m2)
-			<option value="{{$m2->departamento}}">{{$m2->departamento}}</option>
+    <label for="">Departamentos:</label> 
+    <select name="depto" class="form-control selectpicker"  data-live-search="true" id="depto">
+      <option value="">Eliga el departamento</option>
+      @foreach ($medios2 as $m2)
+      <option value="{{$m2->departamento}}">{{$m2->departamento}}</option>
 
-			@endforeach
-		</select>
-	</div>
+      @endforeach
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="">Nombre:</label> 
+    <select name="estado" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="estado">
+      <option value="">Eliga el Estado</option>
+      @foreach ($medios2 as $m)
+      <option value="{{$m->nombre}}">{{$m->nombre}}</option>
 
-	<div class="table-responsive" id="list-medios">
+      @endforeach
+    </select>
+  </div>
 
-		<table class="table table-bordred table-striped table-hover ">
-			<thead>
+  <div class="table-responsive" id="list-medios">
 
-				<th>Nombre</th>
-				<th>Descripcion</th>
-				<th>Marca</th>
-				<th>Color</th>
-				<th>Capacidad</th>
-				<th>Stock</th>
-				<th>Foto</th>
-				<th>Departamento</th>
-				<th>Editar</th>
-				<th>Borrar</th>
-			</thead>
-			<tbody>
-				<tr>
-					@foreach ($medios as $m)
-					<td>{{ $m->nombre}}</td>
-					<td>{{ $m->descripcion}}</td>
-					<td>{{ $m->marca}}</td>
-					<td>{{ $m->color}}</td>
-					<td>{{ $m->capacidad}}</td>
-					<td>{{ $m->stock}}</td>
-					<td><img src="{{asset('imagenes/medios/'.$m->foto)}}" alt="{{ $m->nombre}}" height="100px" width="100px" class="img-thumbail">
-					</td>
-					<td>{{ $m->departamento}}</td>
-					<td><p onclick='Mostrar({{$m->id}});'   data-placement="top" data-toggle="tooltip" title="Edit"><button  class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-					<td><p onclick='Eliminar({{$m->id}});' data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-				</tr>
-				@endforeach
-			</tbody>
+    <table class="table table-bordred table-striped table-hover ">
+     <thead>
 
-
-		</table>
-
-		<div class="clearfix"></div>
-		<ul class="pagination pull-right">
-			{{$medios->render()}}
-		</ul>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>Marca</th>
+      <th>Color</th>
+      <th>Capacidad</th>
+      <th>Stock</th>
+      <th>Foto</th>
+      <th>Departamento</th>
+      <th>Editar</th>
+      <th>Borrar</th>
+    </thead>
+    <tbody>
+      <tr>
+       @foreach ($medios as $m)
+       <td>{{ $m->nombre}}</td>
+       <td>{{ $m->descripcion}}</td>
+       <td>{{ $m->marca}}</td>
+       <td>{{ $m->color}}</td>
+       <td>{{ $m->capacidad}}</td>
+       <td>{{ $m->stock}}</td>
+       <td><img src="{{asset('imagenes/medios/'.$m->foto)}}" alt="{{ $m->nombre}}" height="100px" width="100px" class="img-thumbail">
+       </td>
+       <td>{{ $m->departamento}}</td>
+       <td><p onclick='Mostrar({{$m->id}});'   data-placement="top" data-toggle="tooltip" title="Edit"><button  class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+       <td><p onclick='Eliminar({{$m->id}});' data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+     </tr>
+     @endforeach
+   </tbody>
 
 
-	</div>
-	@include('medios.modalcreate')
-	@include('medios.modaledit')
+ </table>
+
+ <div class="clearfix"></div>
+ <ul class="pagination pull-right">
+   {{$medios->render()}}
+ </ul>
+
+
+</div>
+@include('medios.modalcreate')
+@include('medios.modaledit')
 </div>
 </div>
 
@@ -135,23 +145,23 @@
             listMedios();
             //$("#save-equipos").hide();
 
-        }else{
-        	printErrorMsg(response.responseJSON.error);
-        	$('.print-error-msg').show().delay(4000).fadeOut(2);
-        }
-    }
-};
-function printErrorMsg (msg) {
-	$(".print-error-msg").find("ul").html('');
-	$(".print-error-msg").css('display','block');
-	$.each( msg, function( key, value ) {
-		$(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-	});
-}
+          }else{
+           printErrorMsg(response.responseJSON.error);
+           $('.print-error-msg').show().delay(4000).fadeOut(2);
+         }
+       }
+     };
+     function printErrorMsg (msg) {
+       $(".print-error-msg").find("ul").html('');
+       $(".print-error-msg").css('display','block');
+       $.each( msg, function( key, value ) {
+        $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+      });
+     }
 
 
-var Eliminar = function(id)
-{
+     var Eliminar = function(id)
+     {
       // Alert Jquery
       $.alertable. confirm ("Está seguro de eliminar el registro?").then(function(){
       	var route = "{{url('medios')}}/" +id+"";
@@ -168,28 +178,28 @@ var Eliminar = function(id)
       				listMedios();
               // $("#message-delete").fadeIn();
               $('#message-delete').show().delay(2000).fadeOut(2);
+            }
           }
-      }
-  });
+        });
       });
-  };
+    };
 
 
-  var Mostrar = function(id)
-  {
-  	var route = "{{url('medios')}}/" +id+"/edit";
-  	$.get(route, function(data){
-  		$("#id").val(data.id);
-  		$("#nombreedit").val(data.nombre);
-  		$("#descripcionedit").val(data.descripcion);
-  		$("#marcaedit").val(data.marca);
-  		$("#coloredit").val(data.color);
-  		$("#capacidadedit").val(data.capacidad);
-  		$("#stockedit").val(data.stock);
-  		$("#departamentoedit").val(data.departamento);
-  		$("#fotoedit").val(data.foto);
-  	});
-  }
+    var Mostrar = function(id)
+    {
+     var route = "{{url('medios')}}/" +id+"/edit";
+     $.get(route, function(data){
+      $("#id").val(data.id);
+      $("#nombreedit").val(data.nombre);
+      $("#descripcionedit").val(data.descripcion);
+      $("#marcaedit").val(data.marca);
+      $("#coloredit").val(data.color);
+      $("#capacidadedit").val(data.capacidad);
+      $("#stockedit").val(data.stock);
+      $("#departamentoedit").val(data.departamento);
+      $("#fotoedit").val(data.foto);
+    });
+   }
 
 
     //editar
@@ -222,30 +232,35 @@ var Eliminar = function(id)
             $('#message-save').show().delay(2000).fadeOut(2);
             // $("#message-update").fadeIn(1500);
 
-        }
-    },
-    error:function(data)
-    {
-    	$('#error').html(data.responseJSON.nombre);
-    	$('#message').fadeIn();
+          }
+        },
+        error:function(data)
+        {
+         $('#error').html(data.responseJSON.nombre);
+         $('#message').fadeIn();
            // $('#message-error_edit').show().delay(2000).fadeOut(2);
            if (data.status == 422) 
            {
            	console.clear();
            }
-       }
-   });
+         }
+       });
     });
 
 
     function Capturar()
     {
     // declaramos un arreglo y lo recorremos
-    var cap=$('#medio_id option:selected').val();
+    var depto=$('#depto option:selected').val();
+    var estado=$('#estado option:selected').val();
+
+    var auxiliar= depto+ '/'+estado;
+    
+    var ruta='/list_depto/'+ auxiliar;
     // var fechas= $('#datepicker').val();
-    var ruta='/list_depto/'+ cap;
+    
     window.location.href=ruta;
-}
+  }
 </script>
 
 @endpush

@@ -5,7 +5,8 @@
 <div class="col-md-12">
 	<br><br>
 	<h4>Reservaciones</h4>
-	<button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#create" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button>
+	<!-- <button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#create" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button> -->
+ <a href="/reservaciones/create"> <button class="btn btn-sm btn-primary btn-primary"> Crear Nuevo</button></a>
 	<br><br>
 	<div id="message-save" class="alert alert-success success" role="alert" style="display: none ">
 		<strong id="save">Guardado Correctamente</strong>

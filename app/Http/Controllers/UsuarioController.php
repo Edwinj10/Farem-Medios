@@ -39,6 +39,7 @@ class UsuarioController extends Controller
     {
         $usuarios=DB::table('users as u')
         ->select('u.*')
+        ->where('u.tipo', '!=', 'SuperAdmin')
         ->paginate(40);
 
         return view('usuarios.index', ["usuarios"=>$usuarios]);
@@ -48,6 +49,7 @@ class UsuarioController extends Controller
     {
         $usuarios=DB::table('users as u')
         ->select('u.*')
+        ->where('u.tipo', '!=', 'SuperAdmin')
         ->paginate(40);
 
         return view('usuarios.list', ["usuarios"=>$usuarios]);
@@ -71,16 +73,16 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-     $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
-            'apellido' => ['required', 'string', 'max:255'],
-            'foto' => 'required|mimes:jpeg,bmp,png',
-     ]);
+       $validator = Validator::make($request->all(), [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'string', 'min:6'],
+        'apellido' => ['required', 'string', 'max:255'],
+        'foto' => 'required|mimes:jpeg,bmp,png',
+    ]);
 
 
-     if ($validator->passes()) {
+       if ($validator->passes()) {
 
 
         $input = $request->all();
