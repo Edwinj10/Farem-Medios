@@ -18,12 +18,12 @@
 					<input type="hidden" id="id">
 
 					<div class="form-group">
-						<label>Nombre:</label>
+						<label>Nombre y Apellido:</label>
 						<input class="form-control" placeholder="Nombre" name="name" id="name" required="">
 					</div>
 					<div class="form-group">
-						<label>Apellidos:</label>
-						<input class="form-control" placeholder="Apellidos" name="apellido" id="apellido" required="">
+						<label>Telefono:</label>
+						<input class="form-control" placeholder="Telefono" name="apellido" id="apellido" required="">
 					</div>
 					<div class="form-group">
 						<label>Email:</label>
@@ -52,15 +52,15 @@
 					</div>
 					<div class="form-group">
 						<input style="margin-left:20px;" type="checkbox" id="mostrar_contrasena" title="clic para mostrar contraseña"/>
-					&nbsp;&nbsp;Mostrar Contraseña</div>
-					<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+					&nbsp;&nbsp;Ocultar Contraseña</div>
+					<!-- <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 						<div class="form-group">
 							<label>Foto:</label>
 							<input type="file" id="addfotoarea" name="foto" class="form-control">
 
 							<output id="list"></output>
 						</div>
-					</div>
+					</div> -->
 					<div class="modal-footer ">
 						<button class="btn btn-success upload-image" type="submit">Guardar</button>
 						

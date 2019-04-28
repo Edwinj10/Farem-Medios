@@ -180,11 +180,14 @@ h2 {
 	margin-top: 0;
 	padding: 5px 0
 }
+#black {
+	color: black;
+}
 
 /*-------------- Top Banner --------------*/  
 .jumbotron {
-	background: url(../img/1.jpg);
-	background-size: cover;
+	background: url(../img/sistema-reservacion.png);
+	/*background-size: cover;*/
 	/*height: 100vh;*/
 	height: 500px;
 	color: #fff;

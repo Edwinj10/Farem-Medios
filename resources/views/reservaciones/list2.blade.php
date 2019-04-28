@@ -6,6 +6,7 @@
 		<th>Turno</th>
 		<th>Hora Inicio</th>
 		<th>Hora Fin</th>
+		<th>Departamento</th>
 		<th>Fecha</th>
 		<th>Usuario</th>
 		<th>Estado</th>
@@ -19,13 +20,12 @@
 			<td>{{ $r->turno}}</td>
 			<td>{{ $r->hora_inicio}}</td>
 			<td>{{ $r->hora_fin}}</td>
+			<td>{{ $r->departamento}}</td>
 			<td>{{ $r->fecha}}</td>
 			<td>{{ $r->name}}</td>
 			<td>{{ $r->estado}}</td>
 			<td>
-				<a class="btn btn-default" href="" data-target="#modal-delete-{{$r->in}}" data-toggle="modal"><em class="fa fa-pencil"></em></a>
-
-
+				<a class="btn btn-default" href="{{ route ('reservaciones.show',[$r->in])}}"><em class="fa fa-pencil"></em></a>
 			</td>
 			@include('reservaciones.modal2')
 

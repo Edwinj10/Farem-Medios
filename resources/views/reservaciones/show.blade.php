@@ -52,14 +52,14 @@
         <input class="form-control" name="fecha" id="fecha" required value="{{$reservaciones->estado}}">
       </div>
     </div>  
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <div class="form-group">
         <label for="">Detalle:</label>
-        <!-- <textarea class="form-control" rows="3" name="detalle" id="detalle"></textarea> -->
+        <textarea class="form-control" rows="3" name="detalle" id="detalle"></textarea>
         <input class="form-control" placeholder="Detalle" name="detalle" id="detalle" required value="{{$reservaciones->detalle}}">
 
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="col-lg-10 col-md-8 col-sm-8 col-xs-12">
     <div class="table-responsive">

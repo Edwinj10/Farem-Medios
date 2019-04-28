@@ -1,8 +1,8 @@
 <table class="table table-bordred table-striped table-hover ">
 	<thead>
 
-		<th>Nombre</th>
-		<th>Apellido</th>
+		<th>Nombre y Apellido</th>
+		<th>Telefono</th>
 		<th>Correo</th>
 		<th>Estado</th>
 		<th>Tipo</th>

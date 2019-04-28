@@ -6,7 +6,9 @@
 		<th>Turno</th>
 		<th>Hora Inicio</th>
 		<th>Hora Fin</th>
-		<th>Fecha</th>
+		<th>Departamento</th>
+		<th>Fecha reservada</th>
+		<th>Fecha de Creacion</th>
 		<th>Usuario</th>
 		<th>Estado</th>
 		<th>Detalles</th>
@@ -19,27 +21,29 @@
 			<td>{{ $r->turno}}</td>
 			<td>{{ $r->hora_inicio}}</td>
 			<td>{{ $r->hora_fin}}</td>
+			<td>{{ $r->departamento}}</td>
 			<td>{{ $r->fecha}}</td>
-			<td>{{ $r->name}}</td>
-			<td>{{ $r->estado}}</td>
-			<td>
-				<a class="btn btn-default" href="{{ route ('reservaciones.show',[$r->in])}}"><em class="fa fa-pencil"></em></a>
-			</td>
-		</tr>
+			<td>{{substr(strip_tags($r->created_at), 0,10)}}</td>
+				<td>{{ $r->name}}</td>
+				<td>{{ $r->estado}}</td>
+				<td>
+					<a class="btn btn-default" href="{{ route ('reservaciones.show',[$r->in])}}"><em class="fa fa-pencil"></em></a>
+				</td>
+			</tr>
 
 
-		
-
-		@endforeach
-	</tbody>
 
 
-</table>
+			@endforeach
+		</tbody>
 
 
-<div class="clearfix"></div>
-<ul class="pagination pull-right">
-	{{$reservaciones->render()}}
-</ul>
+	</table>
+
+
+	<div class="clearfix"></div>
+	<ul class="pagination pull-right">
+		{{$reservaciones->render()}}
+	</ul>
 
 

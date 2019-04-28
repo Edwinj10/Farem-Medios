@@ -33,11 +33,18 @@ class MediosController extends Controller
         ->select('m.*')
         ->paginate(40);
 
-         $medios2=DB::table('medios as m')
-        ->select('m.departamento', 'm.nombre')
+        $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->groupby('m.departamento')
         ->paginate(40);
 
-        return view('medios.index', ["medios"=>$medios, 'medios2'=>$medios2]);
+        $medios3=DB::table('medios as m')
+        ->select('m.nombre')
+        ->groupby('m.nombre')
+        ->paginate(40);
+        
+
+        return view('medios.index', ["medios"=>$medios, 'medios2'=>$medios2, 'medios3'=>$medios3]);
     }
 
     public function listall()
@@ -46,16 +53,41 @@ class MediosController extends Controller
         ->select('m.*')
         ->paginate(40);
 
-         $medios2=DB::table('medios as m')
-        ->select('m.departamento', 'm.nombre')
+        $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->groupby('m.departamento')
         ->paginate(40);
 
-        return view('medios.list', ["medios"=>$medios, 'medios2'=>$medios2]);
+        $medios3=DB::table('medios as m')
+        ->select('m.nombre')
+        ->groupby('m.nombre')
+        ->paginate(40);
+
+        return view('medios.list', ["medios"=>$medios, 'medios2'=>$medios2, 'medios3'=>$medios3]);
     }
 
     
 
-    public function listall2($depto, $nombre)
+    public function listall2($depto)
+    {
+        $medios=DB::table('medios as m')
+        ->select('m.*')
+        ->where('m.departamento', '=', $depto)
+        ->paginate(40);
+
+        $medios2=DB::table('medios as m')
+        ->select('m.departamento')
+        ->groupby('m.departamento')
+        ->paginate(40);
+
+        $medios3=DB::table('medios as m')
+        ->select('m.nombre')
+        ->groupby('m.nombre')
+        ->paginate(40);
+        return view('medios.list2', ["medios"=>$medios , 'medios2'=> $medios2, 'medios3'=>$medios3]);
+    }
+
+    public function listall3($depto, $nombre)
     {
         $medios=DB::table('medios as m')
         ->select('m.*')
@@ -64,11 +96,17 @@ class MediosController extends Controller
         ->paginate(40);
 
         $medios2=DB::table('medios as m')
-        ->select('m.departamento', 'm.nombre')
+        ->select('m.departamento')
+        ->groupby('m.departamento')
         ->paginate(40);
 
-        return view('medios.list2', ["medios"=>$medios , 'medios2'=> $medios2]);
+        $medios3=DB::table('medios as m')
+        ->select('m.nombre')
+        ->groupby('m.nombre')
+        ->paginate(40);
+        return view('medios.list3', ["medios"=>$medios , 'medios2'=> $medios2, 'medios3'=>$medios3]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -88,7 +126,7 @@ class MediosController extends Controller
      */
     public function store(Request $request)
     {
-     $validator = Validator::make($request->all(), [
+       $validator = Validator::make($request->all(), [
             // 'nombre' => 'required',
             // 'apodo' => 'required',
             // 'sitio_web' => 'required',
@@ -97,10 +135,10 @@ class MediosController extends Controller
             // 'descripcion' => 'required',
             // 'nombre_estadio' => 'required',
             // 'ligas_id' => 'required',
-     ]);
+       ]);
 
 
-     if ($validator->passes()) {
+       if ($validator->passes()) {
 
 
         $input = $request->all();

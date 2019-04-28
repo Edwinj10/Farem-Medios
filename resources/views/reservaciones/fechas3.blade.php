@@ -42,7 +42,7 @@
         </select>
       </div>
     </div>
-
+    
     <div class="col-md-3">
       <div class="form-group">
         <a href="/reservaciones"><button class="btn btn-primary"> Listar Completa</button></a>
@@ -118,16 +118,16 @@
 <script type="text/javascript">
 
 
-  function redireccion()
-  {
-    var nombre=$('#depto').val();
-    var fecha= $('#datepicker').val();
-    
-    var dia = fecha.substr(8,9);
-    var date = fecha.substr(5,7);
-    var date2 =date.substr(0,2);
-    var anio = fecha.substr(0,4);
-    
+ function redireccion()
+ {
+  var nombre=$('#depto').val();
+  var fecha= $('#datepicker').val();
+  
+  var dia = fecha.substr(8,9);
+  var date = fecha.substr(5,7);
+  var date2 =date.substr(0,2);
+  var anio = fecha.substr(0,4);
+  
     // 2017
     //var id= $('#capturar').val();
     var capturar1 = anio+ '-'+date2+ '-'+dia;
@@ -139,7 +139,6 @@
     // window.location.href=ruta;
     
   }
-
 
 
 </script>

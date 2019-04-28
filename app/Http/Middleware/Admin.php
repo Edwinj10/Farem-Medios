@@ -24,8 +24,8 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->user()-> tipo!='Administrador' && $this->auth->user()-> tipo!='SuperAdmin' ) {
-            Session::flash('message', ' Uste no tiene privilegios para realizar esta accion, porfavor ponerse en contacto con el administrador edwinjosealtamirano@gmail.com');
+        if ($this->auth->user()-> tipo!='Administrador' && $this->auth->user()-> tipo!='SuperAdmin' && $this->auth->user()-> estado!='Activo' ) {
+            Session::flash('message', ' Uste no tiene privilegios para realizar esta accion, porfavor ponerse en contacto con el administrador');
             return back();
         }
         return $next($request);

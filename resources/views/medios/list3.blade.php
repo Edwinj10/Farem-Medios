@@ -25,7 +25,7 @@
   </div>
   <div class="form-group">
     <label for="">Nombre:</label> 
-    <select name="estado" class="form-control selectpicker" onchange="Capturar();"  data-live-search="true" id="estado">
+    <select name="estado" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="estado">
       <option value="">Eliga el Nombre</option>
       @foreach ($medios3 as $m)
       <option value="{{$m->nombre}}">{{$m->nombre}}</option>
@@ -134,6 +134,8 @@
       }
     });
   }
+
+
       // listar
 
       // guardar
@@ -199,7 +201,7 @@
       		success: function(data){
       			if (data.success == 'true') 
       			{
-      				listMedios();
+      				listMediosT();
               // $("#message-delete").fadeIn();
               $('#message-delete').show().delay(2000).fadeOut(2);
             }

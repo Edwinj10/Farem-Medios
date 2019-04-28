@@ -78,7 +78,7 @@ class UsuarioController extends Controller
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         'password' => ['required', 'string', 'min:6'],
         'apellido' => ['required', 'string', 'max:255'],
-        'foto' => 'required|mimes:jpeg,bmp,png',
+        // 'foto' => 'required|mimes:jpeg,bmp,png',
     ]);
 
 
@@ -89,8 +89,8 @@ class UsuarioController extends Controller
 
             // el mejor codigo
         $input['password']=bcrypt($request->password);
-        $input['foto'] = time().'.'.$request->foto->getClientOriginalExtension();
-        $request->foto->move(public_path('/imagenes/usuarios/'), $input['foto']);
+        // $input['foto'] = time().'.'.$request->foto->getClientOriginalExtension();
+        // $request->foto->move(public_path('/imagenes/usuarios/'), $input['foto']);
 
         User::create($input);
 

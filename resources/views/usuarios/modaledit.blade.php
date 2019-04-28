@@ -15,7 +15,7 @@
 					<input class="form-control" placeholder="Nombre" name="nameedit" id="nameedit" required="">
 				</div>
 				<div class="form-group">
-					<label>Apellido:</label>
+					<label>Telefono:</label>
 					<input class="form-control" placeholder="Apellido" name="apellidoedit" id="apellidoedit" required="">
 				</div>
 				<div class="form-group">

@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'apellido' => ['required', 'string', 'max:255'],
             'tipo' => ['required', 'string', 'max:255'],
             'estado' => ['required', 'string', 'max:255'],
-            'foto' => 'required|mimes:jpeg,bmp,png',
+            // 'foto' => 'required|mimes:jpeg,bmp,png',
         ]);
     }
 
@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'apellido' => $data['apellido'],
             'tipo' => $data['tipo'],
             'estado' => $data['estado'],
-            'foto' => $data['foto'],
+            // 'foto' => $data['foto'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

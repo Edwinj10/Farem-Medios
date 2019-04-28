@@ -15,7 +15,7 @@
 	</div>
   <div class="form-group">
     <label for="">Departamentos:</label> 
-    <select name="depto" class="form-control selectpicker"  data-live-search="true" id="depto">
+    <select name="depto" class="form-control selectpicker" onchange="Capturar();"  data-live-search="true" id="depto">
       <option value="">Eliga el departamento</option>
       @foreach ($medios2 as $m2)
       <option value="{{$m2->departamento}}">{{$m2->departamento}}</option>
@@ -23,16 +23,16 @@
       @endforeach
     </select>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="">Nombre:</label> 
     <select name="estado" class="form-control selectpicker" onchange="Capturar();" data-live-search="true" id="estado">
-      <option value="">Eliga el Estado</option>
-      @foreach ($medios2 as $m)
+      <option value="">Eliga el Nombre</option>
+      @foreach ($medios3 as $m)
       <option value="{{$m->nombre}}">{{$m->nombre}}</option>
 
       @endforeach
     </select>
-  </div>
+  </div> -->
   <div class="table-responsive" id="list-medios">
 
 

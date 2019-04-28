@@ -5,14 +5,17 @@
 <div class="col-md-12">
 	<br><br>
 	<h4>Reservaciones</h4>
-	<button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#create" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button>
-	<br><br>
-	<div id="message-save" class="alert alert-success success" role="alert" style="display: none ">
-		<strong id="save">Guardado Correctamente</strong>
-	</div>
-	<div id="message-delete" class="alert alert-info" role="alert" style="display: none ">
-		<strong>El registro se elimino correctamente</strong>
-	</div>
+
+  <a href="/reservaciones/create"> <button class="btn btn-sm btn-primary btn-primary"> Crear Nuevo</button></a>
+  <br><br>
+  <!-- <button type="button" class="btn btn-sm btn-primary btn-primary" data-target="#create" data-toggle="modal"><em class="fa fa-pencil">Crear Nuevo</em></button> -->
+  <br><br>
+  <div id="message-save" class="alert alert-success success" role="alert" style="display: none ">
+    <strong id="save">Guardado Correctamente</strong>
+  </div>
+  <div id="message-delete" class="alert alert-info" role="alert" style="display: none ">
+    <strong>El registro se elimino correctamente</strong>
+  </div>
 
   <div class="table-responsive" id="list-ingresos">
 

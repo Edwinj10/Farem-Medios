@@ -27,7 +27,7 @@ class ReservacionController extends Controller
     {
         $this->middleware('auth', ['only' => 'index', 'listar', 'index2', 'listar2']);
         // para los midelware
-        $this->middleware('admin', ['only' => ['index', 'listar']]);
+        $this->middleware('admin', ['only' => ['index', 'listar', 'index2']]);
         Carbon::setLocale('es');  
     }
 
@@ -40,14 +40,15 @@ class ReservacionController extends Controller
         $reservaciones=DB::table('reservaciones as r')
         ->join('users as u', 'r.usuario_id', '=', 'u.id')
         ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
+        ->join('medios as m', 'm.id', '=', 'dr.medio_id')
         ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-        ->select('r.id as in','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+        ->select('r.id as in','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
         ->orderBy('r.id', 'desc')
-        ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+        ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'r.created_at', 'm.departamento')
             // agrupamos las dos tabas
-        ->paginate(20);
+        ->paginate(40);
 
 
         $medios=DB::table('medios as m')
@@ -121,7 +122,7 @@ public function mostrar(Request $request, $medio, $fecha)
     ->orderBy('r.id', 'desc')
     ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
             // agrupamos las dos tabas
-    ->paginate(20);
+    ->paginate(40);
 
     $medios=DB::table('medios as m')
     ->select('m.id as medio_id', 'm.nombre', 'm.stock', 'm.departamento', 'm.foto')
@@ -179,13 +180,14 @@ public function listar(Request $request)
     ->join('users as u', 'r.usuario_id', '=', 'u.id')
     ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
     ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+    ->join('medios as m', 'm.id', '=', 'dr.medio_id')
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-    ->select('r.id as in','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+    ->select('r.id as in','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'r.created_at', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
     ->orderBy('r.id', 'desc')
-    ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+    ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'r.created_at', 'm.departamento')
             // agrupamos las dos tabas
-    ->paginate(20);
+    ->paginate(40);
 
     $medios=DB::table('medios as m')
     ->select('m.id as medio_id', 'm.nombre', 'm.stock', 'm.departamento', 'm.foto')
@@ -241,23 +243,29 @@ public function list_fechas (Request $request, $fecha)
         ->join('users as u', 'r.usuario_id', '=', 'u.id')
         ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
         ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+        ->join('medios as m', 'm.id', '=', 'dr.medio_id')
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-        ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+        ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
         ->orderBy('r.id', 'desc')
-        ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+        ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'm.departamento')
 
         
         ->where('r.fecha', '=', $fecha)
             // agrupamos las dos tabas
         
-        ->paginate(20);
+        ->paginate(40);
+
+
+         $users=DB::table('users as u')
+        ->select('u.*')
+        ->get();
          // return $reservaciones;
 
 
 
 
-        return view('reservaciones.fechas',['reservaciones'=>$reservaciones, "searchText"=>$query]);
+        return view('reservaciones.fechas',['reservaciones'=>$reservaciones, "searchText"=>$query, 'users'=>$users]);
 
     }
 
@@ -274,23 +282,69 @@ public function list_fechas2 (Request $request, $fecha)
         ->join('users as u', 'r.usuario_id', '=', 'u.id')
         ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
         ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+        ->join('medios as m', 'm.id', '=', 'dr.medio_id')
+
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-        ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+        ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
         ->orderBy('r.id', 'desc')
-        ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+        ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'm.departamento')
 
         
         ->where('r.fecha', '=', $fecha)
             // agrupamos las dos tabas
         
-        ->paginate(20);
+        ->paginate(40);
+
+         $users=DB::table('users as u')
+        ->select('u.*')
+        ->get();
          // return $reservaciones;
 
 
 
 
-        return view('reservaciones.fechas2',['reservaciones'=>$reservaciones, "searchText"=>$query]);
+        return view('reservaciones.fechas2',['reservaciones'=>$reservaciones, "searchText"=>$query, 'users'=>$users]);
+
+    }
+
+}
+
+public function list_fechas3 (Request $request, $fecha, $nombre)
+{
+    if ($request) 
+    {
+            // trim para borrar espacios al incio y a final en la busqueda
+        $query=trim($request->get('searchText'));
+         // $ax='2019-04-25';
+        $reservaciones=DB::table('reservaciones as r')
+        ->join('users as u', 'r.usuario_id', '=', 'u.id')
+        ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
+        ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+        ->join('medios as m', 'm.id', '=', 'dr.medio_id')
+
+            // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
+        ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
+            //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
+        ->orderBy('r.id', 'desc')
+        ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'm.departamento')
+
+        
+        ->where('r.fecha', '=', $fecha)
+        ->where('u.name', '=', $nombre)
+            // agrupamos las dos tabas
+        
+        ->paginate(40);
+
+        $users=DB::table('users as u')
+        ->select('u.*')
+        ->get();
+         // return $reservaciones;
+
+
+
+
+        return view('reservaciones.fechas3',['reservaciones'=>$reservaciones, "searchText"=>$query, 'users'=>$users]);
 
     }
 
@@ -307,14 +361,15 @@ public function index2(Request $request)
     ->join('users as u', 'r.usuario_id', '=', 'u.id')
     ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
     ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+    ->join('medios as m', 'm.id', '=', 'dr.medio_id')
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-    ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+    ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
     ->orderBy('r.id', 'desc')
-    ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+    ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin','m.departamento')
     ->where('r.usuario_id', '=', $id)
             // agrupamos las dos tabas
-    ->paginate(20);
+    ->paginate(40);
 
     
 
@@ -375,14 +430,15 @@ public function listar2(Request $request)
     ->join('users as u', 'r.usuario_id', '=', 'u.id')
     ->join('detalle__reservaciones as dr', 'r.id', '=', 'dr.reservacion_id')
     ->join('periodos as p', 'p.id', '=', 'dr.periodo_id')
+    ->join('medios as m' , 'm.id', '=', 'dr.medio_id')
             // la calse db raw es para que multiplique por cada detalle de ingreso la cantidad por el precio de compra y lo guadara en ul total para mostralo despues
-    ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin')
+    ->select('r.id as in','r.aula', 'r.usuario_id','r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre as turno','p.hora_inicio', 'p.hora_fin', 'm.departamento')
             //->where('i.num_comprobante', 'LIKE', '%'.$query.'%')
     ->orderBy('r.id', 'desc')
-    ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
+    ->groupBy('r.id','r.aula','r.usuario_id', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin', 'm.departamento')
     ->where('r.usuario_id', '=', $id)
             // agrupamos las dos tabas
-    ->paginate(20);
+    ->paginate(40);
 
     $medios=DB::table('medios as m')
     ->select('m.id as medio_id', 'm.nombre', 'm.stock', 'm.departamento', 'm.foto')
@@ -449,7 +505,7 @@ public function listar2(Request $request)
         ->orderBy('r.id', 'desc')
         ->groupBy('r.id','r.aula', 'r.carrera', 'r.estado', 'r.fecha', 'r.detalle', 'u.name','u.apellido','p.nombre','p.hora_inicio', 'p.hora_fin')
             // agrupamos las dos tabas
-        ->paginate(20);
+        ->paginate(40);
 
         $medios=DB::table('medios as m')
         ->select('m.id as medio_id', 'm.nombre', 'm.stock', 'm.departamento', 'm.foto')
@@ -550,8 +606,20 @@ public function listar2(Request $request)
 
         DB::rollback();
     }
+    
+    $tipo = Auth::user();
 
-    return redirect('/reservaciones')->with('message' , 'Creada Correctamente');
+    if ($tipo->tipo == "Usuario") 
+    {
+        return redirect('/reservaciones2')->with('message' , 'Creada Correctamente');
+    }
+    else
+    {
+
+        return redirect('/reservaciones')->with('message' , 'Creada Correctamente');
+    }
+
+    
 }
 
 

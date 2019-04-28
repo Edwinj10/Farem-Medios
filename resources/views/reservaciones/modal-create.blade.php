@@ -45,10 +45,10 @@
 					<label>Cantidad:</label>
 					<input class="form-control" placeholder="Cantidad" name="pcantidad" id="pcantidad">
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label>Detalle:</label>
 					<input class="form-control" placeholder="Detalle" name="detalle" id="detalle">
-				</div>
+				</div> -->
 				
 				
 				<input class="form-control" placeholder="Cantidad" name="periodo_id" id="periodo_id" type="hidden">

@@ -74,6 +74,15 @@
 				</select>
 			</div>
 		</div>
+		<div class="md-4">
+			
+		</div>
+		<div class="md-4"></div>
+		<div class="md-4"></div>
+		<div class="md-4"></div>
+		<div class="md-4"></div>
+		<div class="md-4"></div>
+		<div class="md-4"></div>
 
 		<div class="col-md-4">	
 			<div class="form-group" id="estado">

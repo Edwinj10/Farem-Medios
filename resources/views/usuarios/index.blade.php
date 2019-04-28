@@ -84,13 +84,14 @@
             $("input[name='apellido']").val('');
             $("input[name='tipo']").val('');
             $("input[name='estado']").val('');
+            $("input[name='contrase']").val('');
             
             // alert('Image Upload Successfully.');
             
 
             $("input[name='name']").val('');
             $("input[name='email']").val('');
-            $("input[name='password']").val('');
+            $("input[name='contrase']").val('');
             $("input[name='apellido']").val('');
             $("input[name='tipo']").val('');
             $("input[name='estado']").val('');
@@ -186,6 +187,7 @@
       	var apellidoedit = $('#apellidoedit').val();
       	var emailedit = $('#emailedit').val();
       	var tipoedit = $('#tipoedit').val();
+        var contrase = $('#contrase').val();
       	var estadoedit = $('#estadoedit').val();
       	var route = "{{url('usuarios')}}/" +id+"";
       	var token = $('#token').val();
@@ -195,7 +197,7 @@
       		headers: {'X-CSRF-TOKEN':token},
       		type: 'PUT',
       		datatype : 'json' ,
-      		data: {name:nameedit,apellido:apellidoedit,email:emailedit,tipo:tipoedit,estado:estadoedit },
+      		data: {name:nameedit,apellido:apellidoedit,email:emailedit,password:contrase,tipo:tipoedit,estado:estadoedit },
       		success: function(data){
       			if (data.success == 'true') 
       			{
