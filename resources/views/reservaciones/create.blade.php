@@ -54,14 +54,14 @@
 				<input class="form-control" placeholder="Cantidad" name="pcantidad" id="pcantidad" value="1">
 			</div>
 		</div>
-		<div class="col-md-4">	
-			<div class="form-group">
-				<label>Detalle:</label>
-				<input class="form-control" placeholder="Detalle" name="detalle" id="detalle">
-				<input class="form-control" placeholder="Cantidad" name="periodo_id" id="periodo_id" type="hidden">
-			</div>
+		<!--<div class="col-md-4">	-->
+		<!--	<div class="form-group">-->
+		<!--		<label>Detalle:</label>-->
+		<!--		<input class="form-control" placeholder="Detalle" name="detalle" id="detalle">-->
+		<!--		<input class="form-control" placeholder="Cantidad" name="periodo_id" id="periodo_id" type="hidden">-->
+		<!--	</div>-->
 
-		</div>
+		<!--</div>-->
 		<div class="form-md-4">	
 
 			<div class="form-group">
